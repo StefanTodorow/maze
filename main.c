@@ -16,6 +16,15 @@ int main() {
     puts("player pos");
     printf("%d %d\n", plPos.x, plPos.y);
 
+    validateGrid(grid);
+    validatePlayerPos(plPos, grid);
+
+    ExitPoint* exits;
+    int exitsCounter = findAllExitPoints(grid, exits);
+
+    int shortest = shortestExit(grid, plPos, exits, exitsCounter);
+    printf("Shortest exit: %d\n", shortest);
+
     freeGrid(grid);
 
     return 0;
