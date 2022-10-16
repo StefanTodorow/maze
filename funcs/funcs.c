@@ -34,6 +34,14 @@ FILE* openInput(char* fName) {
     return fp;
 }
 
+FILE* openOutput(char* fName) {
+    FILE* fp = fopen(fName, "w");
+    if(fp == NULL) {
+        error(FileError);
+    }
+    return fp;
+}
+
 PlayerPos initPlayer(FILE* input) {
     PlayerPos plP;
     fscanf(input, "%d", &plP.x);

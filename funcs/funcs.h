@@ -6,6 +6,7 @@
 void error(Errors err);
 
 FILE* openInput(char* fName);
+FILE* openOutput(char* fName);
 
 PlayerPos initPlayer(FILE* input);
 

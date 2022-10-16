@@ -36,6 +36,10 @@ int main() {
     int shortest = shortestExit(grid, plPos, exits, exitsCounter);
     printf("Shortest exit: %d\n", shortest);
 
+    FILE* output = openOutput("OUTPUT.txt");
+    fprintf(output, "%d", shortest);
+    fclose(output);
+
     freeGrid(grid);
 
     return 0;
