@@ -140,62 +140,63 @@ void validatePlayerPos(PlayerPos pP, Grid grid) {
 int findAllExitPoints(Grid grid, ExitPoint* exitPoints) {
     int exitsCount = 0;
     // make loops in func
-    for (int i = 0; i < grid.cols; i++) // top border
+    for (int i = 1; i < grid.cols-1; i++) // top border
     {
         if (grid.grid[0][i] == 0)
         {
-            exitPoints = (ExitPoint*)realloc(exitPoints, exitsCount+1);
-            if (exitPoints == NULL)
-            {
-                error(MemoryError);
-            }
             exitPoints[exitsCount].x = 0;
             exitPoints[exitsCount].y = i;
             exitsCount++;
         }
     }
-    for (int i = 0; i < grid.rows; i++) // left border
+    for (int i = 1; i < grid.rows-1; i++) // left border
     {
         if (grid.grid[i][0] == 0)
         {
-            exitPoints = (ExitPoint*)realloc(exitPoints, exitsCount+1);
-            if (exitPoints == NULL)
-            {
-                error(MemoryError);
-            }
             exitPoints[exitsCount].x = i;
             exitPoints[exitsCount].y = 0;
             exitsCount++;
         }
     }
-    for (int i = 0; i < grid.rows; i++) // right border
+    for (int i = 1; i < grid.rows-1; i++) // right border
     {
         if (grid.grid[i][grid.cols-1] == 0)
         {
-            exitPoints = (ExitPoint*)realloc(exitPoints, exitsCount+1);
-            if (exitPoints == NULL)
-            {
-                error(MemoryError);
-            }
             exitPoints[exitsCount].x = i;
             exitPoints[exitsCount].y = grid.cols-1;
             exitsCount++;
         }
     }
-    for (int i = 0; i < grid.cols; i++) // bottom border
+    for (int i = 1; i < grid.cols-1; i++) // bottom border
     {
         if (grid.grid[grid.rows-1][i] == 0)
         {
-            exitPoints = (ExitPoint*)realloc(exitPoints, exitsCount+1);
-            if (exitPoints == NULL)
-            {
-                error(MemoryError);
-            }
             exitPoints[exitsCount].x = grid.rows-1;
             exitPoints[exitsCount].y = i;
             exitsCount++;
         }
     }
+
+    // if(grid.grid[0][0] == 0) { //top left corner
+    //     exitPoints[exitsCount].x = 0;
+    //     exitPoints[exitsCount].y = 0;
+    //     exitsCount++;
+    // }
+    // if(grid.grid[0][grid.cols-1] == 0) { //top right corner
+    //     exitPoints[exitsCount].x = 0;
+    //     exitPoints[exitsCount].y = grid.cols-1;
+    //     exitsCount++;
+    // }
+    // if(grid.grid[grid.rows-1][0] == 0) { //bottom left corner
+    //     exitPoints[exitsCount].x = grid.rows-1;
+    //     exitPoints[exitsCount].y = 0;
+    //     exitsCount++;
+    // }
+    // if(grid.grid[grid.rows-1][grid.cols-1] == 0) { //top left corner
+    //     exitPoints[exitsCount].x = grid.rows-1;
+    //     exitPoints[exitsCount].y = grid.cols-1;
+    //     exitsCount++;
+    // }
 
     printf("%d exit/s\n", exitsCount);
     for (int i = 0; i < exitsCount; i++)
@@ -273,5 +274,5 @@ int shortestExit(Grid grid, PlayerPos plPos, ExitPoint* exits, int exitsCount) {
     {
         return minDist;
     }
-    return 0;
+    return -1;
 }

@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "structs/structs.h"
 #include "funcs/funcs.h"
+//#define DEBUG
+
+#ifdef DEBUG
+
+
+
+#endif
 
 int main() {
     FILE* input = openInput("INPUT.txt");
@@ -19,7 +26,11 @@ int main() {
     validateGrid(grid);
     validatePlayerPos(plPos, grid);
 
-    ExitPoint* exits;
+    ExitPoint* exits = (ExitPoint*)malloc(192 * sizeof(ExitPoint));
+    if(exits == NULL) {
+        error(MemoryError);
+    }
+
     int exitsCounter = findAllExitPoints(grid, exits);
 
     int shortest = shortestExit(grid, plPos, exits, exitsCounter);
