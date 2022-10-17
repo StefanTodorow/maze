@@ -26,11 +26,13 @@ int main() {
     validateGrid(grid);
     validatePlayerPos(plPos, grid);
 
+    // allocate memory for max possible exits
     ExitPoint* exits = (ExitPoint*)malloc(192 * sizeof(ExitPoint));
     if(exits == NULL) {
         error(MemoryError);
     }
 
+    // count all possible exits
     int exitsCounter = findAllExitPoints(grid, exits);
 
     int shortest = shortestExit(grid, plPos, exits, exitsCounter);
@@ -40,6 +42,7 @@ int main() {
     fprintf(output, "%d", shortest);
     fclose(output);
 
+    free(exits);
     freeGrid(grid);
 
     return 0;

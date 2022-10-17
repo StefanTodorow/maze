@@ -19,6 +19,6 @@ void validatePlayerPos(PlayerPos pP, Grid grid);
 
 int findAllExitPoints(Grid grid, ExitPoint* exitPoints);
 
-int isSafe(Grid grid, int** seen, int x, int y);
+int isSafe(Grid grid, int** seen, int* doorTimers, int x, int y);
 int shortestExit(Grid grid, PlayerPos plPos, ExitPoint* exits, int exitsCount);
-void tryPaths(Grid grid, int** seen, int i, int j, ExitPoint* exits, int exitsCount, int* minDist, int currDist);
+void tryPaths(Grid grid, int** seen, int* doorTimers, int i, int j, ExitPoint* exits, int exitsCount, int* minDist, int currDist);
