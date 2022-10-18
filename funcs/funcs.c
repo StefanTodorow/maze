@@ -198,27 +198,6 @@ int findAllExitPoints(Grid grid, ExitPoint* exitPoints) {
         }
     }
 
-    // if(grid.grid[0][0] == 0) { //top left corner
-    //     exitPoints[exitsCount].x = 0;
-    //     exitPoints[exitsCount].y = 0;
-    //     exitsCount++;
-    // }
-    // if(grid.grid[0][grid.cols-1] == 0) { //top right corner
-    //     exitPoints[exitsCount].x = 0;
-    //     exitPoints[exitsCount].y = grid.cols-1;
-    //     exitsCount++;
-    // }
-    // if(grid.grid[grid.rows-1][0] == 0) { //bottom left corner
-    //     exitPoints[exitsCount].x = grid.rows-1;
-    //     exitPoints[exitsCount].y = 0;
-    //     exitsCount++;
-    // }
-    // if(grid.grid[grid.rows-1][grid.cols-1] == 0) { //top left corner
-    //     exitPoints[exitsCount].x = grid.rows-1;
-    //     exitPoints[exitsCount].y = grid.cols-1;
-    //     exitsCount++;
-    // }
-
     printf("%d exit/s\n", exitsCount);
     for (int i = 0; i < exitsCount; i++)
     {
@@ -248,7 +227,7 @@ int isSafe(Grid grid, int** seen, int* doorTimers, int x, int y) {
             return 1;
         }
         else if(nextField >= 101 && nextField <= 120 && 
-        doorTimers[nextField-101] < 19 && doorTimers[nextField-101] != 0)
+        doorTimers[nextField-101] < 20 && doorTimers[nextField-101] != 0)
         {
             return 1;
         }
@@ -274,21 +253,15 @@ void tryPaths(Grid grid, int** seen, int* doorTimers, int i, int j, ExitPoint* e
         // if player is on an exit point
         if (i == exits[e].x && j == exits[e].y)
         {
-            // if the current distance is shroter than the minimum distance
+            currDist++;
+            // if the current distance is shorter than the minimum distance
             // set the minimum distance to current distance
             *minDist = currDist < *minDist ? currDist : *minDist;
             return;
         }
     }
 
-    for (int t = 0; t < 20; t++)
-    {
-        if (doorTimers[t] != 0)
-        {
-            doorTimers[t]++;
-            //printf("\ndoor timer %d: %d\n", t, doorTimers[t]);
-        }
-    }
+    increasedoorTimers(doorTimers);
 
     int currentField = grid.grid[i][j];
     if (currentField >= 1 && currentField <= 20)
@@ -298,6 +271,28 @@ void tryPaths(Grid grid, int** seen, int* doorTimers, int i, int j, ExitPoint* e
 
     // set current position of player to be seen
     seen[i][j] = 1;
+
+    // go to bottom field
+    if (isSafe(grid, seen, doorTimers, i+1, j)) 
+    {
+        tryPaths(grid, seen, doorTimers, i+1, j, exits, exitsCount, minDist, currDist+1);
+    }
+
+    // go to right field
+    if (isSafe(grid, seen, doorTimers, i, j+1)) 
+    {
+        tryPaths(grid, seen, doorTimers, i, j+1, exits, exitsCount, minDist, currDist+1);
+    }
+    // go to top field
+    if (isSafe(grid, seen, doorTimers, i-1, j)) 
+    {
+        tryPaths(grid, seen, doorTimers, i-1, j, exits, exitsCount, minDist, currDist+1);
+    }
+    // go to left field
+    if (isSafe(grid, seen, doorTimers, i, j-1)) 
+    {
+        tryPaths(grid, seen, doorTimers, i, j-1, exits, exitsCount, minDist, currDist+1);
+    }
 
     // go to bottom field
     if (isSafe(grid, seen, doorTimers, i+1, j)) 
@@ -344,7 +339,7 @@ int shortestExit(Grid grid, PlayerPos plPos, ExitPoint* exits, int exitsCount) {
         }
     }
 
-    tryPaths(grid, seen, doorTimers, plPos.x, plPos.y, exits, exitsCount, &minDist, 1);
+    tryPaths(grid, seen, doorTimers, plPos.x, plPos.y, exits, exitsCount, &minDist, 0);
 
     // free seen matrix
     for (int i = 0; i < grid.rows; i++)

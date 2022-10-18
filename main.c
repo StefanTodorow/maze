@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "structs/structs.h"
 #include "funcs/funcs.h"
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
 
