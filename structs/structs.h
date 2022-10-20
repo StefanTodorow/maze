@@ -4,6 +4,8 @@ typedef enum Errors Errors;
 typedef struct PlayerPos PlayerPos;
 typedef struct Grid Grid;
 typedef struct ExitPoint ExitPoint;
+typedef struct Door Door;
+typedef struct Key Key;
 
 struct Grid {
     int rows;
@@ -21,12 +23,27 @@ struct ExitPoint {
     int y;
 };
 
+struct Door {
+    int x;
+    int y;
+    int isReachable;
+    int isUsed;
+};
+
+struct Key {
+    int x;
+    int y;
+    int isReachable;
+    int isUsed;
+};
+
 enum Errors {
     FileError,
     MemoryError,
     GridSizeError,
     GridFieldError,
     PlayerPosError,
+    NoExitError,
 
     Count
 };

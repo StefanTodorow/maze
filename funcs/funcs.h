@@ -1,24 +1,30 @@
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "C:\Users\stefa\OneDrive\Desktop\maze\maze\structs\structs.h"
 
+//validation.c
 void error(Errors err);
-
-FILE* openInput(char* fName);
-FILE* openOutput(char* fName);
-
-PlayerPos initPlayer(FILE* input);
-
-Grid initGrid(FILE* input);
-void printGrid(Grid grid);
-void freeGrid(Grid grid);
-
 void validateGrid(Grid grid);
 void validatePlayerPos(PlayerPos pP, Grid grid);
 
-int findAllExitPoints(Grid grid, ExitPoint* exitPoints);
+//IO_funcs.c
+FILE* openInput(char* fName);
+FILE* openOutput(char* fName);
+void printGrid(Grid grid);
 
-int isSafe(Grid grid, int** seen, int* doorTimers, int x, int y);
-int shortestExit(Grid grid, PlayerPos plPos, ExitPoint* exits, int exitsCount);
-void tryPaths(Grid grid, int** seen, int* doorTimers, int i, int j, ExitPoint* exits, int exitsCount, int* minDist, int currDist);
+//initialization.c
+PlayerPos initPlayer(FILE* input);
+Grid initGrid(FILE* input);
+void initExitPoints(Grid grid, ExitPoint* exitPoints);
+int countExitPoints(Grid grid);
+
+//main_funcs.c
+int shortestExit(Grid grid, PlayerPos plPos);
+
+void tryExit(Grid grid, int** seen, int i, int j, ExitPoint* exits, int exitsCount, Door* doors, Key* keys, int* minDist, int currDist);
+int tE_isSafe(Grid grid, int** seen, Door* doors, Key* keys, int x, int y);
+
+void shortestPath(Grid grid, int** seen, int i, int j, int endX, int endY, int* shortestP, int currDist);
+int sP_isSafe(Grid grid, int** seen, int x, int y);
