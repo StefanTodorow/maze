@@ -23,8 +23,8 @@ int countExitPoints(Grid grid);
 //main_funcs.c
 int shortestExit(Grid grid, PlayerPos plPos);
 
-void tryExit(Grid grid, int** seen, int i, int j, ExitPoint* exits, int exitsCount, Door* doors, Key* keys, int* minDist, int currDist);
+void tryExit(Grid grid, int** seen, int i, int j, ExitPoint* exits, int exitsCount, Door* doors, Key* keys, int* minDist, int currDist, Node** doorHead, PlayerPos plPos);
 int tE_isSafe(Grid grid, int** seen, Door* doors, Key* keys, int x, int y);
 
-void shortestPath(Grid grid, int** seen, int i, int j, int endX, int endY, int* shortestP, int currDist);
+void shortestPath(Grid grid, int** seen, int i, int j, int key, int* shortestP, int currDist, int* newX, int* newY);
 int sP_isSafe(Grid grid, int** seen, int x, int y);

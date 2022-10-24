@@ -16,7 +16,7 @@ int main() {
     // set player's position and grid
     PlayerPos plPos = initPlayer(input);
     Grid grid = initGrid(input);
-
+    
     fclose(input);
 
     puts("grid");

@@ -6,6 +6,7 @@ typedef struct Grid Grid;
 typedef struct ExitPoint ExitPoint;
 typedef struct Door Door;
 typedef struct Key Key;
+typedef struct Node Node;
 
 struct Grid {
     int rows;
@@ -35,6 +36,12 @@ struct Key {
     int y;
     int isReachable;
     int isUsed;
+};
+
+struct Node {
+    int x;
+    int y;
+    Node* next;
 };
 
 enum Errors {
